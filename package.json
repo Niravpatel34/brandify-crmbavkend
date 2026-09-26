@@ -1,12 +1,26 @@
 {
-  "name": "brandify-outreach",
+  "name": "brandify-outreach-backend",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
+  "main": "dist/server.js",
   "scripts": {
-    "install:all": "npm install --prefix backend && npm install --prefix frontend",
-    "build:frontend": "npm run build --prefix frontend",
-    "build:backend": "npm run build --prefix backend",
-    "build": "npm run build:frontend && npm run build:backend",
-    "start": "npm run start --prefix backend"
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "pg": "^8.13.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   }
 }
