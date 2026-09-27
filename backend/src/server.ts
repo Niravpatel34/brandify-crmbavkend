@@ -34,7 +34,10 @@ const allowedOrigins = [
   'http://localhost:5177', 
   'http://localhost:5173',
   'https://brandifytrends.space',
-  'https://www.brandifytrends.space'
+  'https://www.brandifytrends.space',
+  'https://brandify-crm-65d8f.web.app',
+  'https://brandify-crmbavkend.onrender.com'
+];
 ];
 
 if (process.env.FRONTEND_URL && !allowedOrigins.includes(process.env.FRONTEND_URL)) {
