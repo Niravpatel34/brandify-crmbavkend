@@ -154,3 +154,4 @@ app.use(async (req, res, next) => {
 
 import { onRequest } from 'firebase-functions/v2/https';
 export const api = onRequest(app);
+bootstrap();
