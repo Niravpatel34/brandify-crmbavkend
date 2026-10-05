@@ -80,7 +80,15 @@ class QueueManager {
       }
 
       const modeResult = await query(`SELECT value FROM integrations WHERE key = 'mode'`);
-      const isLiveMode = modeResult.rows.length > 0 && modeResult.rows[0].value === 'LIVE';
+      let isLiveMode = false;
+      if (modeResult.rows.length > 0) {
+        try {
+          const parsedMode = JSON.parse(modeResult.rows[0].value);
+          isLiveMode = parsedMode === 'LIVE';
+        } catch {
+          isLiveMode = modeResult.rows[0].value === 'LIVE' || modeResult.rows[0].value === '"LIVE"';
+        }
+      }
 
       if (!isLiveMode) {
         await processMockOutreach({
