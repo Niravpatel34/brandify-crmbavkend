@@ -1100,12 +1100,28 @@ router.post('/integrations', authMiddleware, async (req, res) => {
       );
     }
     if (whatsapp_credentials) {
+      const existing = await query("SELECT value FROM integrations WHERE key = 'whatsapp_credentials'");
+      let existingCreds: any = {};
+      if (existing.rows.length) {
+        try { existingCreds = JSON.parse(existing.rows[0].value); } catch {}
+      }
+      if (whatsapp_credentials.accessToken && whatsapp_credentials.accessToken.includes('****')) {
+        whatsapp_credentials.accessToken = existingCreds.accessToken;
+      }
       await query(
         'INSERT INTO integrations (key, value) VALUES ($1, $2) ON CONFLICT(key) DO UPDATE SET value = $2',
         ['whatsapp_credentials', JSON.stringify(whatsapp_credentials)]
       );
     }
     if (instagram_credentials) {
+      const existing = await query("SELECT value FROM integrations WHERE key = 'instagram_credentials'");
+      let existingCreds: any = {};
+      if (existing.rows.length) {
+        try { existingCreds = JSON.parse(existing.rows[0].value); } catch {}
+      }
+      if (instagram_credentials.accessToken && instagram_credentials.accessToken.includes('****')) {
+        instagram_credentials.accessToken = existingCreds.accessToken;
+      }
       await query(
         'INSERT INTO integrations (key, value) VALUES ($1, $2) ON CONFLICT(key) DO UPDATE SET value = $2',
         ['instagram_credentials', JSON.stringify(instagram_credentials)]
